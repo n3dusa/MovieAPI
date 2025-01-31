@@ -1,4 +1,4 @@
-import pool from '../config/db.js'; // Assuming db.js exports the database pool
+import pool from '../config/db.js'; // 
 
 // Add a new genre
 export const addGenre = async (genreName) => {

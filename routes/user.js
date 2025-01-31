@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/register', async (req, res) => {
     const { name, username, password, year_of_birth } = req.body;
 
-    console.log('Request body:', req.body); // Log incoming data for debugging
+    console.log('Request body:', req.body); 
 
     // Validate incoming data
     if (!name || !username || !password || !year_of_birth) {

@@ -1,12 +1,12 @@
 import express from 'express';
-import bodyParser from 'body-parser'; // For parsing request bodies
+import bodyParser from 'body-parser'; 
 import movieRoutes from './routes/movie.js';
 import userRoutes from './routes/user.js';
 import genreRoutes from './routes/genre.js';
 
-const app = express(); // Initialize Express app
+const app = express(); 
 
-// Middleware for parsing JSON bodies
+
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
