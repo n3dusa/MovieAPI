@@ -1,0 +1,43 @@
+CREATE TABLE genre(
+    id SERIAL NOT NULL,
+    name varchar(255) NOT NULL,
+    PRIMARY KEY(id)
+);
+CREATE UNIQUE INDEX genre_name_key ON genre USING btree ("name");
+
+CREATE TABLE movie(
+    id SERIAL NOT NULL,
+    name varchar(255) NOT NULL,
+    year integer NOT NULL,
+    genre_id integer NOT NULL,
+    PRIMARY KEY(id),
+    CONSTRAINT movie_genre_id_fkey FOREIGN key(genre_id) REFERENCES genre(id)
+);
+
+CREATE TABLE "user"(
+    id SERIAL NOT NULL,
+    name varchar(255) NOT NULL,
+    username varchar(255) NOT NULL,
+    password varchar(255) NOT NULL,
+    year_of_birth integer NOT NULL,
+    PRIMARY KEY(id)
+);
+CREATE UNIQUE INDEX user_username_key ON "user" USING btree ("username");
+
+CREATE TABLE review(
+    id SERIAL NOT NULL,
+    user_id integer NOT NULL,
+    movie_id integer NOT NULL,
+    stars integer NOT NULL,
+    review_text text,
+    PRIMARY KEY(id),
+    CONSTRAINT review_movie_id_fkey FOREIGN key(movie_id) REFERENCES movie(id),
+    CONSTRAINT review_stars_check CHECK ((stars >= 1) AND (stars <= 5))
+);
+
+CREATE TABLE favoritemovie(
+    user_id integer NOT NULL,
+    movie_id integer NOT NULL,
+    PRIMARY KEY(user_id,movie_id),
+    CONSTRAINT favoritemovie_movie_id_fkey FOREIGN key(movie_id) REFERENCES movie(id)
+);
