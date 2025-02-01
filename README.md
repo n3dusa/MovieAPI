@@ -23,9 +23,11 @@ Request Body:
 json
 Copy
 Edit
+POST http://localhost:3001/genres 
 {
   "name": "Comedy"
 }
+
 
 
 # 2. Add a New Movie
@@ -35,11 +37,13 @@ Request Body:
 json
 Copy
 Edit
+POST http://localhost:3001/movies/
 {
   "name": "Interstellar",
   "year": 2014,
   "genreName": "Action"
 }
+
 genreId is the ID of the genre (e.g., 1 for Comedy).
 
 
@@ -50,6 +54,7 @@ Request Body:
 json
 Copy
 Edit
+3.	 POST http://localhost:3001/users/register
 {
   "name": "Samuel",
   "username": "Samppa",
@@ -66,6 +71,8 @@ Response:
 json
 Copy
 Edit
+4.	GET  http://localhost:3001/movies/1
+make sure that ID number exists
 {
   "id": 14,
   "name": "Interstellar",
@@ -79,7 +86,7 @@ Endpoint: DELETE /movies/:id
 Description: Deletes a movie by its ID.
 Example: /movies/14
 Response: Movie deleted
-
+DELETE http://localhost:3001/movies/14
 
 # 6. Get All Movies (Paginated)
 Endpoint: GET /movies
@@ -94,13 +101,15 @@ Edit
   { "id": 2, "name": "Movie 2", "year": 2019, "genre": "Comedy" },
   ...
 ]
+GET http://localhost:3001/movies?page=1&limit=10
+GET http://localhost:3001/movies?page=2&limit=10
 
 
 # 7. Search Movies by Keyword
 Endpoint: GET /movies/search?keyword=Comedy
 Description: Retrieves movies that match the provided keyword.
 Example: /movies/search?keyword=Comedy
-
+7.	http://localhost:3001/movies/search?keyword=Comedy
 
 # 8. Add a Review for a Movie
 Endpoint: POST /movies/review
@@ -109,6 +118,7 @@ Request Body:
 json
 Copy
 Edit
+POST	http://localhost:3001/movies/review
 {
   "username": "samppa",
   "stars": 5,
@@ -124,6 +134,7 @@ Request Body:
 json
 Copy
 Edit
+ POST http://localhost:3001/movies/1/favorite
 {
   "username": "samppa"
 }
@@ -136,6 +147,8 @@ Example: /movies/samppa/favorites
 Database Schema
 The project uses PostgreSQL for data storage. The database contains the following tables:
 
+GET http://localhost:3001/movies/samppa/favorites
+    
 genre: Stores movie genres (e.g., Action, Comedy).
 movie: Stores movie details (name, year, genre).
 user: Stores user information (username, password).
