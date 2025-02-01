@@ -130,6 +130,33 @@ router.post('/review', async (req, res) => {
         console.error("Error:", error);
         res.status(400).json({ error: error.message });  // Bad request if error occurs
     }
+
 });
 
-export default router;
+
+// GET: Get movies by keyword
+router.get('/search', async (req, res) => {
+    const { keyword } = req.query;
+
+    if (!keyword) {
+        return res.status(400).json({ error: 'Keyword is required' });
+    }
+
+    try {
+        // Call the function to get movies matching the keyword (in name or genre)
+        const movies = await getMoviesByKeyword(keyword);
+
+        if (movies.length === 0) {
+            return res.status(404).json({ error: 'No movies found for the given keyword' });
+        }
+
+        res.json(movies);
+    } catch (error) {
+        console.error("Error retrieving movies by keyword:", error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+
+export default router;  

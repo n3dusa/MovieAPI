@@ -40,7 +40,7 @@ Edit
 {
   "name": "Interstellar",
   "year": 2014,
-  "genreId": 1
+  "genreName": "Action"
 }
 genreId is the ID of the genre (e.g., 1 for Comedy).
 

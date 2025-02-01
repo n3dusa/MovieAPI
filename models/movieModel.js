@@ -6,10 +6,12 @@ export const addMovie = async ({ name, year, genreId }) => {
         INSERT INTO movie (name, year, genre_id)
         VALUES ($1, $2, $3)
         RETURNING *`;
+    
     const values = [name, year, genreId];
     const result = await pool.query(query, values);
     return result.rows[0];
 };
+
 
 // Get a movie by ID
 export const getMovieById = async (id) => {
@@ -45,29 +47,24 @@ export const removeMovieById = async (id) => {
     return result.rows[0];
 };
 
-// Get movies by keyword (search functionality)
+
+// Get movies by keyword
 export const getMoviesByKeyword = async (keyword) => {
-    try {
-        console.log("Searching movies with keyword:", keyword); // Debugging log
-
-        const query = `
-            SELECT movie.id, movie.name, movie.year, genre.name AS genre
-            FROM movie
-            JOIN genre ON movie.genre_id = genre.id
-            WHERE movie.name ILIKE $1 
-               OR genre.name ILIKE $1 
-               OR CAST(movie.year AS TEXT) ILIKE $1
-        `;
-
-        const values = [`%${keyword}%`];
-        const result = await pool.query(query, values);
-
-        console.log("Movies found:", result.rows); // Debugging log
-        return result.rows;
-
-    } catch (error) {
-        console.error("Error in getMoviesByKeyword:", error);
-        throw error;
-    }
+    const query = `
+        SELECT movie.id, movie.name, movie.year, genre.name AS genre
+        FROM movie
+        JOIN genre ON movie.genre_id = genre.id
+        WHERE movie.name ILIKE $1 OR genre.name ILIKE $1`;  // Search both movie name and genre name
+    const values = [`%${keyword}%`];
+    const result = await pool.query(query, values);
+    return result.rows;  // Return the rows (movies)
 };
+
+
+
+
+
+
+
+
 
